@@ -18,6 +18,7 @@ async function get_client() {
       return client;
     } catch (err) {
       console.log("Connection Error!", err);
+      return null;
     }
   }
   
