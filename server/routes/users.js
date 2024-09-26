@@ -2,12 +2,16 @@
 const router = require('express').Router();
 
 // internal dependencies
+const {addUserValidator, addUserValidationHandler } = require('../middlewares/common/userValidator');
+const { createUser } = require('../controllers/usersController');
 
 
 // routes
-router.get("/", (req, res) => {
-    res.send("Welcome to the user route");
-});
+// router.get('/', getAllUsers);
+// router.get('/:id', getUser);
+router.post('/create', addUserValidator, addUserValidationHandler, createUser);
+// router.put('/:id', updateUser);
+// router.delete('/:id', deleteUser);
 
 // export the router
 module.exports = router;
