@@ -12,6 +12,7 @@ const createUsersTableQuery = `
 CREATE TABLE IF NOT EXISTS users(
 	uid SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
 	password BYTEA NOT NULL,
 	phone VARCHAR(15) NOT NULL CHECK (phone ~ '^\\+[0-9]{1,14}$'),
 	district VARCHAR(100),
