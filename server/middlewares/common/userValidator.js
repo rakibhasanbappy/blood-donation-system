@@ -2,6 +2,9 @@
 const { body, validationResult } = require('express-validator');
 const createError = require('http-errors');
 
+// internal imports
+const { getUserByEmail } = require('../../services/users_operations.js');
+
 
 // register new user
 const addUserValidator = [
@@ -14,12 +17,13 @@ const addUserValidator = [
     .withMessage("Invalid Email Format")
     .custom(async (value) => {
       try {
-        const user = await User.findOne({ email: value });
-        if (user) {
+        const user = await getUserByEmail(value);
+        if (user.length > 0) {
           throw new Error('A user already exists with this e-mail address');
         }
       } catch (err) {
-        throw createError(err.message);
+        console.log("DB Error: ", err);
+        throw new Error(err.message);
       }
     }),
 
@@ -55,6 +59,18 @@ const addUserValidator = [
     .optional()
     .isDate()
     .withMessage("Last donated date must be a valid date"),
+
+    body("district")
+    .optional()
+    .trim()
+    .isAlpha("en-US", { ignore: "-" })
+    .withMessage("District must be alphabetic"),
+
+    body("division")
+    .optional()
+    .trim()
+    .isAlpha("en-US", { ignore: "-" })
+    .withMessage("Division must be alphabetic"),
 
 ];
 

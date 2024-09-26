@@ -1,16 +1,16 @@
-const get_client = require('get_client');
+const get_client = require('./get_client');
 
 // create a new user
 async function createUser(newUser){
     const query = {
-        text: 'INSERT INTO users (username, password, email) VALUES ($1, $2, $3) RETURNING *',
-        values: [newUser.username, newUser.password, newUser.email]
+        text: 'INSERT INTO users (email, name, password, phone, district, divison, blood_group, is_available, last_donated ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+        values: [newUser.email, newUser.name, newUser.password, newUser.phone, newUser.district, newUser.divison, newUser.blood_group, newUser.is_available, newUser.last_donated]
     }
     try{
         const client = await get_client();
         const { rows } = await client.query(query);
-        client.release();
-        return rows[0];
+        client.end();
+        return rows[0].name;
     } catch (error){
         console.log(error);
         return error;
@@ -26,8 +26,8 @@ async function getUserByEmail(email){
     try{
         const client = await get_client();
         const { rows } = await client.query(query);
-        client.release();
-        return rows[0];
+        client.end();
+        return rows;
     } catch (error){
         console.log(error);
         return error;
