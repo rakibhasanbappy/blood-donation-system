@@ -1,6 +1,5 @@
 // external imports
 const { body, validationResult } = require('express-validator');
-const createError = require('http-errors');
 
 // internal imports
 const { getUserByEmail } = require('../../services/users_operations.js');
@@ -18,7 +17,7 @@ const addUserValidator = [
     .custom(async (value) => {
       try {
         const user = await getUserByEmail(value);
-        if (user.length > 0) {
+        if (user && user.length > 0) {
           throw new Error('A user already exists with this e-mail address');
         }
       } catch (err) {

@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 // internal dependencies
-const {addUserValidator, addUserValidationHandler } = require('../middlewares/common/userValidator');
+const {addUserValidator, addUserValidationHandler } = require('../middlewares/common/addUserValidator');
 const { createUser } = require('../controllers/usersController');
 
 
