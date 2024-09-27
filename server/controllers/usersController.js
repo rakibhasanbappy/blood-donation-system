@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 require("dotenv").config();
 
 // Internal Imports
-const { createUser, getUserByEmail } = require('../services/users_operations.js');
+const { createUser, getUserByEmail, getUserById } = require('../services/users_operations.js');
 
 
 
@@ -92,6 +92,25 @@ usersController.getLogin = async(req, res) => {
 
 }
 
+usersController.logout = async(req, res) => {
+    res.clearCookie(process.env.COOKIE_NAME);
+    res.status(200).json({
+        message: "Logout Successful"
+    });
+}
+
+
+// get user by id
+usersController.getUserById = async (req, res) => {
+    try {
+        const user = await getUserById(req.params.id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({
+            error: error,
+        });
+    }
+};
 
 
 module.exports = usersController;
