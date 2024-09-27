@@ -1,5 +1,6 @@
 // external dependencies
 const express = require("express");
+const cookieParser = require('cookie-parser');
 require("dotenv").config();
 
 // internal dependencies
@@ -11,6 +12,9 @@ const app = express();
 
 // This middleware parses JSON bodies of incoming requests
 app.use(express.json());
+
+// Use cookie-parser with the signing secret
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 
 // routes
