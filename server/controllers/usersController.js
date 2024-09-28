@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 require("dotenv").config();
 
 // Internal Imports
-const { createUser, getUserByEmail, getUserById } = require('../services/users_operations.js');
+const { createUser, getUserByEmail, getUserById, updateUser } = require('../services/users_operations.js');
 
 
 
@@ -106,6 +106,37 @@ usersController.getUserById = async (req, res) => {
         const user = await getUserById(req.params.id);
         res.status(200).json(user);
     } catch (error) {
+        res.status(400).json({
+            error: error,
+        });
+    }
+};
+
+// user update
+usersController.updateUser = async (req, res) => {
+    
+    if(parseInt(req.user.userId) !== parseInt(req.params.id)){
+        return res.status(401).json({
+            error: "Unauthorized Access"
+        });
+    }
+    
+    
+    let updatedUser = {
+        uid: req.user.userId,
+        phone: req.body.phone,
+        district: req.body.district,
+        divison: req.body.divison,
+        blood_group: req.body.blood_group,
+        is_available: req.body.is_available,
+        last_donated: req.body.last_donated,
+    };
+
+    try{
+        const user = await updateUser(updatedUser);
+        res.status(200).json(user);
+    }
+    catch(error){
         res.status(400).json({
             error: error,
         });

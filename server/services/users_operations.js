@@ -51,8 +51,26 @@ async function getUserById(id){
     }
 }
 
+// update user
+async function updateUser(updatedUser){
+    const query = {
+        text: 'UPDATE users SET phone = $1, district = $2, divison = $3, blood_group = $4, is_available = $5, last_donated = $6 WHERE uid = $7 RETURNING *',
+        values: [updatedUser.phone, updatedUser.district, updatedUser.divison, updatedUser.blood_group, updatedUser.is_available, updatedUser.last_donated, updatedUser.uid]
+    }
+    try{
+        const client = await get_client();
+        const { rows } = await client.query(query);
+        client.end();
+        return rows;
+    } catch (error){
+        console.log(error);
+        return error;
+    }
+}
+
 module.exports = {
     createUser,
     getUserByEmail,
-    getUserById
+    getUserById,
+    updateUser
 }
