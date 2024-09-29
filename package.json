@@ -4,7 +4,8 @@
   "description": "This a blood donation management system",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js"
+    "start": "nodemon server/index.js",
+    "prod": "NODE_ENV=production node server/index.js"
   },
   "repository": {
     "type": "git",
