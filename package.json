@@ -2,10 +2,10 @@
   "name": "blood-donation-system",
   "version": "1.0.0",
   "description": "This a blood donation management system",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "nodemon server/index.js",
-    "prod": "NODE_ENV=production node server/index.js"
+    "start": "node index.js",
+    "prod": "NODE_ENV=production node index.js"
   },
   "repository": {
     "type": "git",
