@@ -1,4 +1,4 @@
-const get_client = require('../services/db_client');
+const get_client = require('./get_client');
 
 
 // get all requests
@@ -9,7 +9,7 @@ const get_all_requests = async () => {
     }
 
     try{
-        const client = get_client();
+        const client = await get_client();
         const { rows } = await client.query(query);
         await client.end();
         return rows;
@@ -27,7 +27,7 @@ const get_request_by_id = async (id) => {
     }
 
     try{
-        const client = get_client();
+        const client = await get_client();
         const { rows } = await client.query(query);
         await client.end();
         return rows;
@@ -45,7 +45,7 @@ const get_requests_by_user_id = async (id) => {
     }
 
     try{
-        const client = get_client();
+        const client = await get_client();
         const { rows } = await client.query(query);
         await client.end();
         return rows;
@@ -63,7 +63,7 @@ const create_request = async (request) => {
     }
 
     try{
-        const client = get_client();
+        const client = await get_client();
         const { rows } = await client.query(query);
         await client.end();
         return rows;
@@ -81,9 +81,13 @@ const update_request = async (request) => {
     }
 
     try{
-        const client = get_client();
+        const client = await get_client();
         const { rows } = await client.query(query);
         await client.end();
+
+        if(rows.length === 0){
+            return res.status(404).json({error: 'Request not found'});
+        }
         return rows;
     }catch(err){
         console.log(err);
