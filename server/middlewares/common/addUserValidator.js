@@ -30,7 +30,7 @@ const addUserValidator = [
     .trim()
     .notEmpty()
     .withMessage("Name is required")
-    .isAlpha("en-US", { ignore: "-" })
+    .isAlpha("en-US", { ignore: " -" })
     .withMessage("Name must be alphabetic"),
 
     body("password")

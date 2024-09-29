@@ -9,7 +9,7 @@ async function createUser(newUser){
     try{
         const client = await get_client();
         const { rows } = await client.query(query);
-        client.end();
+        await client.end();
         return rows[0].name;
     } catch (error){
         console.log(error);
@@ -26,7 +26,7 @@ async function getUserByEmail(email){
     try{
         const client = await get_client();
         const { rows } = await client.query(query);
-        client.end();
+        await client.end();
         return rows;
     } catch (error){
         console.log(error);
@@ -43,7 +43,7 @@ async function getUserById(id){
     try{
         const client = await get_client();
         const { rows } = await client.query(query);
-        client.end();
+        await client.end();
         return rows;
     } catch (error){
         console.log(error);
@@ -60,7 +60,7 @@ async function updateUser(updatedUser){
     try{
         const client = await get_client();
         const { rows } = await client.query(query);
-        client.end();
+        await client.end();
         return rows;
     } catch (error){
         console.log(error);
