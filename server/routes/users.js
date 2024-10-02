@@ -10,7 +10,7 @@ const { checkLogin, redirectLoggedIn } = require('../middlewares/common/checkLog
 
 // routes
 // router.get('/', getAllUsers);
-router.get('/:id', getUserById);
+router.get('/:id', checkLogin, getUserById);
 router.post('/create', redirectLoggedIn, addUserValidator, addUserValidationHandler, createUser);
 router.post('/login', redirectLoggedIn, loginValidator, loginValidationHandler, getLogin);
 router.put('/:id', checkLogin, updateUser);

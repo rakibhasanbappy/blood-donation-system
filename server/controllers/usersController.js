@@ -102,6 +102,13 @@ usersController.logout = async(req, res) => {
 
 // get user by id
 usersController.getUserById = async (req, res) => {
+
+    if(parseInt(req.user.userId) !== parseInt(req.params.id)){
+        return res.status(401).json({
+            error: "Unauthorized Access"
+        });
+    }
+    
     try {
         const user = await getUserById(req.params.id);
         res.status(200).json(user);

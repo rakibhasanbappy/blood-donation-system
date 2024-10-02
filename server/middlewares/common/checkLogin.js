@@ -6,7 +6,7 @@ const checkLogin = (req, res, next) => {
     const token = req.signedCookies[process.env.COOKIE_NAME];
 
     if(!token){
-        res.status(401).json({message: 'Authorization Required'});
+        return res.status(401).json({message: 'Authorization Required'});
     }
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -14,7 +14,7 @@ const checkLogin = (req, res, next) => {
         next();
     }catch(error){
         console.log(error);
-        res.status(401).json({message: 'Unauthorized Access'});
+        return res.status(401).json({message: 'Unauthorized Access'});
     }
 };
 

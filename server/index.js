@@ -6,12 +6,14 @@ require("dotenv").config();
 // internal dependencies
 const usersRouter = require("./routes/users");
 const requestsRouter = require("./routes/requests");
+const logger = require("./middlewares/common/logger");
 
 // initialize express app
 const app = express();
 
 // This middleware parses JSON bodies of incoming requests
 app.use(express.json());
+app.use(logger({ level: 'INFO' }));
 
 // Use cookie-parser with the signing secret
 app.use(cookieParser(process.env.COOKIE_SECRET));
