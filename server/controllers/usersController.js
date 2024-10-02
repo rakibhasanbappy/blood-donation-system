@@ -48,8 +48,8 @@ usersController.createUser = async (req, res) => {
     };
 
     try {
-        const username = await createUser(newUser);
-        res.status(201).json(username);
+        const {username, email, uid} = await createUser(newUser);
+        res.status(201).json({username, email, uid});
     } catch (error) {
         res.status(400).json(error);
     }
@@ -108,7 +108,7 @@ usersController.getUserById = async (req, res) => {
             error: "Unauthorized Access"
         });
     }
-    
+
     try {
         const user = await getUserById(req.params.id);
         res.status(200).json(user);

@@ -10,7 +10,7 @@ async function createUser(newUser){
         const client = await get_client();
         const { rows } = await client.query(query);
         await client.end();
-        return rows[0].name;
+        return { username: rows[0].name, email: rows[0].email, uid: rows[0].uid };
     } catch (error){
         console.log(error);
         return error;
