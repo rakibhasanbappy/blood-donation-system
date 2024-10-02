@@ -128,15 +128,26 @@ usersController.updateUser = async (req, res) => {
         });
     }
     
-    
+    // get the user first
+    let user;
+    try{
+        user = await getUserById(req.params.id);
+    }
+    catch(error){
+        res.status(500).json({
+            error: "Something went wrong!",
+        });
+    }
+
     let updatedUser = {
         uid: req.user.userId,
-        phone: req.body.phone,
-        district: req.body.district,
-        divison: req.body.divison,
-        blood_group: req.body.blood_group,
-        is_available: req.body.is_available,
-        last_donated: req.body.last_donated,
+        name: req.body.name === undefined ? user[0].name : req.body.name,
+        phone: req.body.phone === undefined ? user[0].phone : req.body.phone,
+        district: req.body.district === undefined ? user[0].district : req.body.district,
+        divison: req.body.divison === undefined ? user[0].divison : req.body.divison,
+        blood_group: req.body.blood_group === undefined ? user[0].blood_group : req.body.blood_group,
+        is_available: req.body.is_available === undefined ? user[0].is_available : req.body.is_available,
+        last_donated: req.body.last_donated === undefined ? user[0].last_donated : req.body.last_donated,
     };
 
     try{
