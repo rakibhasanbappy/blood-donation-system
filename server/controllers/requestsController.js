@@ -33,6 +33,9 @@ requestsController.get_request_by_id = async (req, res) => {
 
 // get requests by user id
 requestsController.get_requests_by_user_id = async (req, res) => {
+    if(parseInt(req.user.userId) !== parseInt(req.params.id)){
+        return res.status(403).json({error: 'You are not allowed to access this route'});
+    }
     const uid = req.user.userId;
     try{
         const requests = await get_requests_by_user_id(uid);

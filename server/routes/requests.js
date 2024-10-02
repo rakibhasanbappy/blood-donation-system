@@ -17,7 +17,7 @@ router.get("/", get_all_requests);
 router.get("/:id", get_request_by_id);
 
 // get requests by user id
-router.get("/user", checkLogin, get_requests_by_user_id);
+router.get("/user/:id", checkLogin, get_requests_by_user_id);
 
 // create a request
 router.post("/", checkLogin, addRequestValidator, addRequestValidationHandler, create_request);
